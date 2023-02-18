@@ -32,6 +32,10 @@ public class LocationApiController {
 
         List<Location> locations = this.locationService.getLocations();
 
+        if (locations.isEmpty()) {
+
+            return ResponseEntity.noContent().build();
+        }
         return new ResponseEntity<>(locations, HttpStatus.OK);
     }
 }
