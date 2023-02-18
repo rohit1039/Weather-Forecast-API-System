@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface LocationRepository extends CrudRepository<Location, String> {
 
-    @Query("SELECT * FROM Location l where l.trash=false")
+    @Query("SELECT l FROM Location l where l.trashed=false")
     List<Location> findUntrashedLocations();
 
 }
