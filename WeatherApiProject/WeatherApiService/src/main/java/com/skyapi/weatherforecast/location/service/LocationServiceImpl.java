@@ -16,6 +16,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     public Location addLocation(Location location) {
+
         Location savedLocation = this.locationRepository.save(location);
 
         return savedLocation;
