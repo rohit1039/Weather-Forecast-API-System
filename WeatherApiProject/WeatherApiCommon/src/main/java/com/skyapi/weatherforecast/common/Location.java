@@ -24,19 +24,37 @@ import lombok.Setter;
 @Builder
 public class Location {
 
-    @Column(name = "location_code", length = 12, nullable = false, unique = true) @JsonProperty(value = "location_code") @Id @NotBlank private String code;
+    @Column(name = "location_code", length = 12, nullable = false, unique = true)
+    @JsonProperty(value = "location_code")
+    @Id
+    @NotBlank
+    private String code;
 
-    @Column(name = "city_name", length = 128, nullable = false) @JsonProperty(value = "city_name") @NotBlank private String cityName;
+    @Column(name = "city_name", length = 128, nullable = false)
+    @JsonProperty(value = "city_name")
+    @NotBlank
+    private String cityName;
 
-    @Column(name = "region_name", length = 128) @JsonProperty(value = "region_name") @NotBlank private String regionName;
+    @Column(name = "region_name", length = 128)
+    @JsonProperty(value = "region_name")
+    @NotBlank
+    private String regionName;
 
-    @Column(name = "country_name", length = 64, nullable = false) @JsonProperty(value = "country_name") @NotBlank private String countryName;
+    @Column(name = "country_name", length = 64, nullable = false)
+    @JsonProperty(value = "country_name")
+    @NotBlank
+    private String countryName;
 
-    @Column(name = "country_code", length = 2, nullable = false) @JsonProperty(value = "country_code") @NotBlank private String countryCode;
+    @Column(name = "country_code", length = 2, nullable = false)
+    @JsonProperty(value = "country_code")
+    @NotBlank
+    private String countryCode;
 
-    @JsonProperty(value = "enabled") private boolean enabled;
+    @JsonProperty(value = "enabled")
+    private boolean enabled;
 
-    @JsonIgnore private boolean trashed;
+    @JsonIgnore
+    private boolean trashed;
 
 
 }

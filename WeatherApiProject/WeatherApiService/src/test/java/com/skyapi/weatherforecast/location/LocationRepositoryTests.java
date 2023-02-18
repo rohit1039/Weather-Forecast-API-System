@@ -17,7 +17,8 @@ import com.skyapi.weatherforecast.location.repository.LocationRepository;
 @Rollback(false)
 public class LocationRepositoryTests {
 
-    @Autowired private LocationRepository locationRepository;
+    @Autowired
+    private LocationRepository locationRepository;
 
     @Test
     public void testAddLocation_Success() {

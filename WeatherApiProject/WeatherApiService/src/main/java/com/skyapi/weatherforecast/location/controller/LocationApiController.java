@@ -13,6 +13,7 @@ import com.skyapi.weatherforecast.location.service.LocationService;
 @RestController
 @RequestMapping(value = "v1/locations")
 public class LocationApiController {
+
     private LocationService locationService;
 
     public LocationApiController(LocationService locationService) {

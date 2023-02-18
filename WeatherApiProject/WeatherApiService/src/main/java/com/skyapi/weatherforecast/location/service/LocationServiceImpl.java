@@ -7,6 +7,7 @@ import com.skyapi.weatherforecast.location.repository.LocationRepository;
 
 @Service
 public class LocationServiceImpl implements LocationService {
+
     private LocationRepository locationRepository;
 
     public LocationServiceImpl(LocationRepository locationRepository) {

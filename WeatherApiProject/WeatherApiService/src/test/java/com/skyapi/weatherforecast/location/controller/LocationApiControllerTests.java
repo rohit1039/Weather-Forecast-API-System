@@ -15,9 +15,11 @@ import com.skyapi.weatherforecast.location.service.LocationService;
 
 public class LocationApiControllerTests {
 
-    @Mock private LocationService locationService;
+    @Mock
+    private LocationService locationService;
 
-    @InjectMocks private LocationApiController locationApiController;
+    @InjectMocks
+    private LocationApiController locationApiController;
 
     @BeforeEach
     public void setUp() {
