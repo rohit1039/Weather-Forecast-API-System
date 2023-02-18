@@ -1,5 +1,7 @@
 package com.skyapi.weatherforecast.location.exception;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -16,6 +18,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
                                                                   HttpHeaders headers, HttpStatusCode status,
@@ -29,6 +33,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         exception.getBindingResult().getGlobalErrors().forEach((errorGlobal) -> {
             errors.put(((FieldError) errorGlobal).getField(), errorGlobal.getDefaultMessage());
         });
+
+        LOGGER.error("{}", errors);
+
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 }
