@@ -1,14 +1,12 @@
 package com.skyapi.weatherforecast.location.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.skyapi.weatherforecast.common.Location;
 import com.skyapi.weatherforecast.location.service.LocationService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "v1/locations")
@@ -27,5 +25,13 @@ public class LocationApiController {
         Location addedLocation = this.locationService.addLocation(location);
 
         return new ResponseEntity<>(addedLocation, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Location>> getLocations() {
+
+        List<Location> locations = this.locationService.getLocations();
+
+        return new ResponseEntity<>(locations, HttpStatus.OK);
     }
 }

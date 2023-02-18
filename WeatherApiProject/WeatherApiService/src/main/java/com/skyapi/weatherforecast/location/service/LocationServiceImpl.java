@@ -1,9 +1,10 @@
 package com.skyapi.weatherforecast.location.service;
 
-import org.springframework.stereotype.Service;
-
 import com.skyapi.weatherforecast.common.Location;
 import com.skyapi.weatherforecast.location.repository.LocationRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class LocationServiceImpl implements LocationService {
@@ -20,5 +21,11 @@ public class LocationServiceImpl implements LocationService {
         Location savedLocation = this.locationRepository.save(location);
 
         return savedLocation;
+    }
+
+    @Override
+    public List<Location> getLocations() {
+
+        return this.locationRepository.findUntrashedLocations();
     }
 }
