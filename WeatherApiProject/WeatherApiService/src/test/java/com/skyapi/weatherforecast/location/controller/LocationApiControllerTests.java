@@ -77,7 +77,6 @@ public class LocationApiControllerTests {
                                      .regionName("ODISHA")
                                      .cityName("Karanjia")
                                      .enabled(true)
-                                     .trashed(false)
                                      .build();
 
         Location location2 = Location.builder()
@@ -86,7 +85,6 @@ public class LocationApiControllerTests {
                                      .regionName("New York")
                                      .countryCode("US")
                                      .countryName("United States of America")
-                                     .trashed(true)
                                      .enabled(true)
                                      .build();
 
@@ -107,5 +105,4 @@ public class LocationApiControllerTests {
 
         assertEquals(HttpStatusCode.valueOf(204), actualStatusCode);
     }
-
 }

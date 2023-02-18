@@ -12,6 +12,8 @@ import org.springframework.test.annotation.Rollback;
 import com.skyapi.weatherforecast.common.Location;
 import com.skyapi.weatherforecast.location.repository.LocationRepository;
 
+import java.util.List;
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
@@ -36,7 +38,34 @@ public class LocationRepositoryTests {
 
         assertThat(savedLocation).isNotNull();
         assertThat(savedLocation.getCode()).isEqualTo(location.getCode());
+    }
 
+    @Test
+    public void testAddLocation_Failure() {
+
+        Location location = Location.builder()
+                                    .code("NYC_USA")
+                                    .cityName("New York City")
+                                    .regionName("New York")
+                                    .countryCode("US")
+                                    .countryName("United States of America")
+                                    .enabled(true)
+                                    .build();
+
+        Location savedLocation = this.locationRepository.save(location);
+
+        assertThat(savedLocation).isNotNull();
+        assertThat(savedLocation.getCode()).isEqualTo(location.getCode());
+    }
+
+    @Test
+    public void testGetLocations_Success() {
+
+        List<Location> getLocations = this.locationRepository.findUntrashedLocations();
+
+        assertThat(getLocations).isNotEmpty();
+
+        getLocations.forEach(System.out::println);
     }
 
 }
