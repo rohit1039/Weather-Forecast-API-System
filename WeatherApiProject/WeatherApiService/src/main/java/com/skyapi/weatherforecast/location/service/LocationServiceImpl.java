@@ -41,22 +41,22 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public Location update(Location locationInRequest) {
 
-        Location location = this.locationRepository.findLocation(locationInRequest.getLocationCode());
+        Location locationInDB = this.locationRepository.findLocation(locationInRequest.getLocationCode());
 
-        if (location == null) {
+        if (locationInDB == null) {
 
             throw new LocationNotFoundException(
-                    "Location not found with given code: " + locationInRequest.getLocationCode());
+                    "Location not found with given location_code: " + locationInRequest.getLocationCode());
 
         }
 
-        location.setCityName(locationInRequest.getCityName());
-        location.setRegionName(locationInRequest.getRegionName());
-        location.setCountryName(locationInRequest.getCountryName());
-        location.setCountryCode(locationInRequest.getCountryCode());
-        location.setEnabled(locationInRequest.isEnabled());
+        locationInDB.setCityName(locationInRequest.getCityName());
+        locationInDB.setRegionName(locationInRequest.getRegionName());
+        locationInDB.setCountryName(locationInRequest.getCountryName());
+        locationInDB.setCountryCode(locationInRequest.getCountryCode());
+        locationInDB.setEnabled(locationInRequest.isEnabled());
 
-        Location updatedLocation = this.locationRepository.save(location);
+        Location updatedLocation = this.locationRepository.save(locationInDB);
 
         return updatedLocation;
     }
@@ -67,7 +67,8 @@ public class LocationServiceImpl implements LocationService {
         Location locationInDB = this.locationRepository.findLocation(code);
 
         if (locationInDB == null) {
-            throw new LocationNotFoundException("No location found with the given code: " + code);
+
+            throw new LocationNotFoundException("No location found with the given location_code: " + code);
         }
 
         this.locationRepository.trashByCode(code);

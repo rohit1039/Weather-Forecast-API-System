@@ -1,7 +1,6 @@
 package com.skyapi.weatherforecast.location.controller;
 
 import com.skyapi.weatherforecast.common.Location;
-import com.skyapi.weatherforecast.location.exception.LocationNotFoundException;
 import com.skyapi.weatherforecast.location.service.LocationService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -60,29 +59,17 @@ public class LocationApiController {
     @PutMapping
     public ResponseEntity<Location> updateLocation(@RequestBody @Valid Location locationInRequest) {
 
-        try {
-            Location updatedLocation = this.locationService.update(locationInRequest);
+        Location updatedLocation = this.locationService.update(locationInRequest);
 
-            return new ResponseEntity<>(updatedLocation, HttpStatus.OK);
-        }
-        catch (LocationNotFoundException exception) {
-
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(updatedLocation, HttpStatus.OK);
     }
 
     @DeleteMapping("/{code}")
     public ResponseEntity<?> deleteLocation(@PathVariable("code") String code) {
 
-        try {
-            this.locationService.delete(code);
+        this.locationService.delete(code);
 
-            return ResponseEntity.noContent().build();
-        }
-        catch (LocationNotFoundException e) {
-
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.noContent().build();
     }
 
 }

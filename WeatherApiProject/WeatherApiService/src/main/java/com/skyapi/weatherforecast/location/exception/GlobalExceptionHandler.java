@@ -9,9 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -37,5 +39,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         LOGGER.error("{}", errors);
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(LocationNotFoundException.class)
+    private ResponseEntity<ExceptionInResponse> handleGenericException(LocationNotFoundException ex) {
+
+        ExceptionInResponse exceptionInResponse = new ExceptionInResponse(LocalDateTime.now(),
+                                                                          HttpStatusCode.valueOf(404),
+                                                                          ex.getLocalizedMessage());
+
+        return new ResponseEntity<>(exceptionInResponse, HttpStatusCode.valueOf(404));
     }
 }
