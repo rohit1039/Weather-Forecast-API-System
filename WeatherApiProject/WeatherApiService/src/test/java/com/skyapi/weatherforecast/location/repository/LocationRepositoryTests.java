@@ -1,4 +1,4 @@
-package com.skyapi.weatherforecast.location;
+package com.skyapi.weatherforecast.location.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
