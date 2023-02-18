@@ -10,4 +10,9 @@ public interface LocationService {
 
     List<Location> getLocations();
 
+    Location getLocationsByCode(String code);
+
+    Location update(Location locationInRequest);
+
+    void delete(String locationCode);
 }

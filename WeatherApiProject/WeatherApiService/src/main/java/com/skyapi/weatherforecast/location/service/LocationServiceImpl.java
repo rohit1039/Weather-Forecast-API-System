@@ -1,12 +1,15 @@
 package com.skyapi.weatherforecast.location.service;
 
 import com.skyapi.weatherforecast.common.Location;
+import com.skyapi.weatherforecast.location.exception.LocationNotFoundException;
 import com.skyapi.weatherforecast.location.repository.LocationRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class LocationServiceImpl implements LocationService {
 
     private final LocationRepository locationRepository;
@@ -27,5 +30,46 @@ public class LocationServiceImpl implements LocationService {
     public List<Location> getLocations() {
 
         return this.locationRepository.findUntrashedLocations();
+    }
+
+    @Override
+    public Location getLocationsByCode(String code) {
+
+        return this.locationRepository.findLocation(code);
+    }
+
+    @Override
+    public Location update(Location locationInRequest) {
+
+        Location location = this.locationRepository.findLocation(locationInRequest.getLocationCode());
+
+        if (location == null) {
+
+            throw new LocationNotFoundException(
+                    "Location not found with given code: " + locationInRequest.getLocationCode());
+
+        }
+
+        location.setCityName(locationInRequest.getCityName());
+        location.setRegionName(locationInRequest.getRegionName());
+        location.setCountryName(locationInRequest.getCountryName());
+        location.setCountryCode(locationInRequest.getCountryCode());
+        location.setEnabled(locationInRequest.isEnabled());
+
+        Location updatedLocation = this.locationRepository.save(location);
+
+        return updatedLocation;
+    }
+
+    @Override
+    public void delete(String code) {
+
+        Location locationInDB = this.locationRepository.findLocation(code);
+
+        if (locationInDB == null) {
+            throw new LocationNotFoundException("No location found with the given code: " + code);
+        }
+
+        this.locationRepository.trashByCode(code);
     }
 }
