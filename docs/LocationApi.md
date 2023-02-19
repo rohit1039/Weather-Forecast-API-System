@@ -19,3 +19,9 @@ Name | Type | Description  | Notes
 Deletes a location by code (soft delete)
 
 Trash information of a location found by a given identifier
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **code** | **String**| location code of the location to be trashed |
