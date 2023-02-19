@@ -26,6 +26,20 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **code** | **String**| location code of the location to be trashed | soft delete
  
+<a name="listAllLocations"></a>
+# **listAllLocations**
+> listAllLocations()
+
+Returns information of all locations
+
+Returns a JSON document containing a list of Location objects 
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Location** | **ArrayList**| fetch all locations |
+ 
 <a name="updateLocation"></a>
 # **updateLocation**
 > updateLocation(@RequestBody Location updateLocation)
