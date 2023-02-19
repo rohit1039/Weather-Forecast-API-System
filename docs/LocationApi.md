@@ -10,7 +10,7 @@ Persists location information (JSON) into database
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Location** | **Object** | representation of a location (do not specify value for code field) |
+ **Location** | **Object** | representation of a location (do not specify value for code field) | cannot be null
  
 <a name="deleteLocation"></a>
 # **deleteLocation**
