@@ -1,7 +1,7 @@
 # Location API
 
 <a name="addLocation"></a>
-# **addLocation**
+## **addLocation**
 > addLocation(@RequestBody Location locationRequest)
 
 Adds a location
@@ -15,7 +15,7 @@ Name | Type | Description  | Notes
  **Location** | **Object** | add a location | do not specify value for code field
  
 <a name="deleteLocation"></a>
-# **deleteLocation**
+## **deleteLocation**
 > deleteLocation(@PathVariable String code)
 
 Deletes a location by code (soft delete)
@@ -29,7 +29,7 @@ Name | Type | Description  | Notes
  **code** | **String**| location code of the location to be trashed | soft delete
  
 <a name="getLocations"></a>
-# **getLocations**
+## **getLocations**
 > getLocations()
 
 Returns information of all locations
@@ -43,7 +43,7 @@ Name | Type | Description  | Notes
  **Location** | **ArrayList**| fetch all locations |
  
 <a name="updateLocation"></a>
-# **updateLocation**
+## **updateLocation**
 > updateLocation(@RequestBody Location updateLocation)
 
 Updates a location
