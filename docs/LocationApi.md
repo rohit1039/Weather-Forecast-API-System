@@ -14,6 +14,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **Location** | **Object** | add a location | do not specify value for code field
  
+<a name="getLocationByCode"></a>
+## **getLocationByCode**
+> getLocationByCode(@PathVariable String code)
+
+Get location information from database
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **code** | **String** | get location information by code |  
+ 
 <a name="deleteLocation"></a>
 ## **deleteLocation**
 > deleteLocation(@PathVariable String code)
