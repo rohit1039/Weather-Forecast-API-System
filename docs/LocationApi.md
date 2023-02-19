@@ -2,7 +2,7 @@
 # **addLocation**
 > addLocation(@RequestBody Location locationInRequest)
 
-Adds a student
+Adds a location
 
 Persists location information (JSON) into database
 
