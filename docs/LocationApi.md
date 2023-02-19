@@ -24,4 +24,4 @@ Trash information of a location found by a given identifier
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **code** | **String**| location code of the location to be trashed |
+ **code** | **String**| location code of the location to be trashed | soft delete
