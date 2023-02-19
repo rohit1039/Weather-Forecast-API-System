@@ -70,7 +70,6 @@ public class LocationServiceImpl implements LocationService {
 
             throw new LocationNotFoundException("No location found with the given location_code: " + code);
         }
-
         this.locationRepository.trashByCode(code);
     }
 }
