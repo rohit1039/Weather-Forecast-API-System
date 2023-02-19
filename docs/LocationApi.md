@@ -1,7 +1,7 @@
 # Location API
 
 <a name="addLocation"></a>
-## - [x] **addLocation**
+## **addLocation**
 > addLocation(@RequestBody Location locationRequest)
 
 Adds a location
