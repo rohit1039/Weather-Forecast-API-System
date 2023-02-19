@@ -26,9 +26,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **code** | **String**| location code of the location to be trashed | soft delete
  
-<a name="listAllLocations"></a>
-# **listAllLocations**
-> listAllLocations()
+<a name="getLocations"></a>
+# **getLocations**
+> getLocations()
 
 Returns information of all locations
 
