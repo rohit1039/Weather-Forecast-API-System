@@ -42,7 +42,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(LocationNotFoundException.class)
-    private ResponseEntity<ExceptionInResponse> handleGenericException(LocationNotFoundException ex) {
+    private ResponseEntity<ExceptionInResponse> handleLocationNotException(LocationNotFoundException ex) {
 
         ExceptionInResponse exceptionInResponse = new ExceptionInResponse(LocalDateTime.now(),
                                                                           HttpStatusCode.valueOf(404),
@@ -51,5 +51,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         LOGGER.error(ex.getLocalizedMessage(), ex);
 
         return new ResponseEntity<>(exceptionInResponse, HttpStatusCode.valueOf(404));
+    }
+
+    @ExceptionHandler(Exception.class)
+    private ResponseEntity<ExceptionInResponse> handleGenericException(Exception ex) {
+
+        ExceptionInResponse exceptionInResponse = new ExceptionInResponse(LocalDateTime.now(),
+                                                                          HttpStatusCode.valueOf(500),
+                                                                          ex.getLocalizedMessage());
+
+        LOGGER.error(ex.getLocalizedMessage(), ex);
+
+        return new ResponseEntity<>(exceptionInResponse, HttpStatusCode.valueOf(500));
     }
 }
