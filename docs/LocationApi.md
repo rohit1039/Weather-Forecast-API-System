@@ -14,7 +14,7 @@ Name | Type | Description  | Notes
  
 <a name="deleteLocation"></a>
 # **deleteLocation**
-> deleteLocation(code)
+> deleteLocation(@PathVariable String code)
 
 Deletes a location by code (soft delete)
 
