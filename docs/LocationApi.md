@@ -1,6 +1,6 @@
 <a name="addLocation"></a>
 # **addLocation**
-> addLocation(@RequestBody Location locationInRequest)
+> addLocation(@RequestBody Location locationRequest)
 
 Adds a location
 
