@@ -10,7 +10,7 @@ Persists location information (JSON) into database
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **Location** | **Object** | representation of a location (do not specify value for code field) | cannot be null
+ **Location** | **Object** | add a location | do not specify value for code field
  
 <a name="deleteLocation"></a>
 # **deleteLocation**
@@ -25,3 +25,18 @@ Trash information of a location found by a given identifier
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **code** | **String**| location code of the location to be trashed | soft delete
+ 
+<a name="updateLocation"></a>
+# **updateLocation**
+> updateLocation(@RequestBody Location updateLocation)
+
+Updates a location
+
+Updates information of an existing location
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **Location** | **Object**| location to be updated | location code cannot be updated
+ 
