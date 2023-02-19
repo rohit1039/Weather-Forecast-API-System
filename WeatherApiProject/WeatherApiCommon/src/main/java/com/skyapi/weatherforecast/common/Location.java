@@ -24,7 +24,7 @@ public class Location {
     @Column(name = "location_code", length = 12, nullable = false, unique = true)
     @JsonProperty(value = "location_code")
     @Id
-    @NotBlank(message = "location_code is required")
+    @NotBlank(message = "locationCode is required")
     private String locationCode;
 
     @Column(name = "city_name", length = 128, nullable = false)

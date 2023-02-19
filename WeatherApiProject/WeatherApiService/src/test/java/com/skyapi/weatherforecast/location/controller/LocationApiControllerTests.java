@@ -33,6 +33,7 @@ public class LocationApiControllerTests {
 
     @Test
     public void testAddShouldReturn400BadRequest() throws Exception {
+
         Location location = new Location();
 
         String bodyContent = mapper.writeValueAsString(location);
@@ -137,7 +138,7 @@ public class LocationApiControllerTests {
                                     .enabled(true)
                                     .build();
 
-        Mockito.when(locationService.getLocationsByCode(code)).thenReturn(location);
+        Mockito.when(locationService.getLocationByCode(code)).thenReturn(location);
 
         mockMvc.perform(get(requestURI))
                .andExpect(status().isOk())

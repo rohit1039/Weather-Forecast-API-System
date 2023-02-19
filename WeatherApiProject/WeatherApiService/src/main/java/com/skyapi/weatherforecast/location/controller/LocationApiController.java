@@ -46,7 +46,7 @@ public class LocationApiController {
     @GetMapping("/{code}")
     public ResponseEntity<Location> getLocationByCode(@NotBlank @PathVariable String code) {
 
-        Location location = this.locationService.getLocationsByCode(code);
+        Location location = this.locationService.getLocationByCode(code);
 
         if (location == null) {
 

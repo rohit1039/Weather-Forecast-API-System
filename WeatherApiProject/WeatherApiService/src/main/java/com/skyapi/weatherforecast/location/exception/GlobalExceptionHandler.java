@@ -48,6 +48,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                                           HttpStatusCode.valueOf(404),
                                                                           ex.getLocalizedMessage());
 
+        LOGGER.error(ex.getLocalizedMessage(), ex);
+
         return new ResponseEntity<>(exceptionInResponse, HttpStatusCode.valueOf(404));
     }
 }
