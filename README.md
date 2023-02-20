@@ -1,6 +1,6 @@
 # Weather-Forecast-API-System
 
-### Location API
+### * Location API
 
 All URIs are relative to *http://localhost:8080*
 
@@ -12,7 +12,7 @@ All URIs are relative to *http://localhost:8080*
  *LocationApiController* | [**getLocations**](docs/LocationApi.md#getLocations)           | **GET** /v1/locations           | Returns all locations      
  *LocationApiController* | [**updateLocation**](docs/LocationApi.md#updateLocation)       | **PUT** /v1/locations           | Updates a location         
 
-### Realtime Weather API
+### * Realtime Weather API
 
 All URIs are relative to *http://localhost:8080*
 
