@@ -27,8 +27,6 @@ public class LocationServiceImpl implements LocationService {
 
         Location savedLocation = this.locationRepository.save(location);
 
-        LOGGER.info("Location saved successfully!");
-
         return savedLocation;
     }
 
@@ -69,8 +67,6 @@ public class LocationServiceImpl implements LocationService {
         locationInDB.setEnabled(locationInRequest.isEnabled());
 
         Location updatedLocation = this.locationRepository.save(locationInDB);
-
-        LOGGER.info("Location updated with: {}", updatedLocation.getLocationCode());
 
         return updatedLocation;
     }

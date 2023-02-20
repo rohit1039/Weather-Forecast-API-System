@@ -4,6 +4,8 @@ import com.skyapi.weatherforecast.common.Location;
 import com.skyapi.weatherforecast.location.service.LocationService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,6 +18,8 @@ import java.util.List;
 @Validated
 public class LocationApiController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(LocationApiController.class);
+
     private final LocationService locationService;
 
     public LocationApiController(LocationService locationService) {
@@ -27,6 +31,8 @@ public class LocationApiController {
     public ResponseEntity<Location> addLocation(@Valid @RequestBody Location location) {
 
         Location addedLocation = this.locationService.addLocation(location);
+
+        LOGGER.info("Location saved successfully!");
 
         return new ResponseEntity<>(addedLocation, HttpStatus.CREATED);
     }
@@ -60,6 +66,8 @@ public class LocationApiController {
     public ResponseEntity<Location> updateLocation(@RequestBody @Valid Location locationInRequest) {
 
         Location updatedLocation = this.locationService.update(locationInRequest);
+
+        LOGGER.info("Location updated with: {}", updatedLocation.getLocationCode());
 
         return new ResponseEntity<>(updatedLocation, HttpStatus.OK);
     }
