@@ -4,8 +4,6 @@ All URIs are relative to *http://localhost:8080*
 
 - Location API
 
-> Location API details
-
  Class                   | Method                                                         | HTTP request                    | Description                
 -------------------------|----------------------------------------------------------------|---------------------------------|----------------------------
  *LocationApiController* | [**addLocation**](docs/LocationApi.md#addLocation)             | **POST** /v1/locations          | Adds a location            
@@ -15,8 +13,6 @@ All URIs are relative to *http://localhost:8080*
  *LocationApiController* | [**updateLocation**](docs/LocationApi.md#updateLocation)       | **PUT** /v1/locations           | Updates a location         
 
 - Realtime Weather API
-
-> Realtime Weather API details
 
  Class                   | Method                                                         | HTTP request                    | Description                
 -------------------------|----------------------------------------------------------------|---------------------------------|----------------------------
