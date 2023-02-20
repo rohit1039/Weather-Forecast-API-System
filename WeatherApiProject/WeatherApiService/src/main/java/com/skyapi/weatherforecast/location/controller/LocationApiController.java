@@ -3,7 +3,6 @@ package com.skyapi.weatherforecast.location.controller;
 import com.skyapi.weatherforecast.common.Location;
 import com.skyapi.weatherforecast.location.service.LocationService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,8 +50,7 @@ public class LocationApiController {
     }
 
     @GetMapping("/{code}")
-    public ResponseEntity<Location> getLocationByCode(
-            @PathVariable @Size(max = 12) String code) {
+    public ResponseEntity<Location> getLocationByCode(@PathVariable @Size(max = 12) String code) {
 
         Location location = this.locationService.getLocationByCode(code);
 
@@ -75,8 +73,7 @@ public class LocationApiController {
     }
 
     @DeleteMapping("/{code}")
-    public ResponseEntity<?> deleteLocation(
-            @PathVariable("code") @Size(max = 12) String code) {
+    public ResponseEntity<?> deleteLocation(@PathVariable("code") @Size(max = 12) String code) {
 
         this.locationService.delete(code);
 

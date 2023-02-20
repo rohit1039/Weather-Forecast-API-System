@@ -5,247 +5,189 @@
  */
 package io.swagger.api;
 
-import io.swagger.model.DailyCodeBody;
-import io.swagger.model.FullCodeBody;
-import io.swagger.model.HourlyCodeBody;
-import io.swagger.model.InlineResponse200;
-import io.swagger.model.InlineResponse2001;
-import io.swagger.model.InlineResponse2002;
-import io.swagger.model.InlineResponse2003;
-import io.swagger.model.Location;
-import io.swagger.model.RealtimeCodeBody;
-import io.swagger.model.V1LocationsBody;
-import io.swagger.model.V1LocationsBody1;
+import io.swagger.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.CookieValue;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
 import java.util.List;
-import java.util.Map;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-02-20T06:40:29.743300367Z[GMT]")
 @Validated
 public interface V1Api {
 
-    @Operation(summary = "Adds a new location to be managed for weather forecast", description = "Clients use this API to put a new location into the system. Location code must be manually specified. Country code and country name based on ISO 3166", tags={ "Location" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "201", description = "Successful add operation. Location added. Returns details of the newly added location.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = V1LocationsBody1.class))),
-        
-        @ApiResponse(responseCode = "400", description = "Failed add operation. Request body rejected due to some fields have invalid values") })
-    @RequestMapping(value = "/v1/locations",
-        produces = { "application/json" }, 
-        consumes = { "application/json" }, 
-        method = RequestMethod.POST)
-    ResponseEntity<V1LocationsBody1> addLocation(@Parameter(in = ParameterIn.DEFAULT, description = "a JSON object that represents a location", required=true, schema=@Schema()) @Valid @RequestBody V1LocationsBody1 body);
+    @Operation(summary = "Adds a new location to be managed for weather forecast", description = "Clients use this API to put a new location into the system. Location code must be manually specified. Country code and country name based on ISO 3166", tags = {"Location"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "Successful add operation. Location added. Returns details of the newly added location.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = V1LocationsBody1.class))),
+
+                           @ApiResponse(responseCode = "400", description = "Failed add operation. Request body rejected due to some fields have invalid values")})
+    @RequestMapping(value = "/v1/locations", produces = {"application/json"}, consumes = {"application/json"}, method = RequestMethod.POST)
+    ResponseEntity<V1LocationsBody1> addLocation(
+            @Parameter(in = ParameterIn.DEFAULT, description = "a JSON object that represents a location", required = true, schema = @Schema()) @Valid @RequestBody V1LocationsBody1 body);
 
 
-    @Operation(summary = "Removes an existing location found by a specific code", description = "Clients use this API to delete a specific location from database", tags={ "Location" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "204", description = "Successful delete operation. Location removed."),
-        
-        @ApiResponse(responseCode = "404", description = "No location found with the given code.") })
-    @RequestMapping(value = "/v1/locations/{code}",
-        method = RequestMethod.DELETE)
-    ResponseEntity<Void> deleteLocation(@Parameter(in = ParameterIn.PATH, description = "code of the location", required=true, schema=@Schema()) @PathVariable("code") String code);
+    @Operation(summary = "Removes an existing location found by a specific code", description = "Clients use this API to delete a specific location from database", tags = {"Location"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "Successful delete operation. Location removed."),
+
+                           @ApiResponse(responseCode = "404", description = "No location found with the given code.")})
+    @RequestMapping(value = "/v1/locations/{code}", method = RequestMethod.DELETE)
+    ResponseEntity<Void> deleteLocation(
+            @Parameter(in = ParameterIn.PATH, description = "code of the location", required = true, schema = @Schema()) @PathVariable("code") String code);
 
 
-    @Operation(summary = "Returns daily weather forecast information for a specific location code", description = "Clients use this API to get forecast about weather in the upcoming days, for the given location", tags={ "Daily Forecast" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "successful retrieval operation. A JSON object representing daily forecast data available for the given location code", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2002.class))),
-        
-        @ApiResponse(responseCode = "404", description = "No managed location found for the given location code") })
-    @RequestMapping(value = "/v1/daily/{code}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<InlineResponse2002> getDailyForecastByLocationCode(@Parameter(in = ParameterIn.PATH, description = "code of the location", required=true, schema=@Schema()) @PathVariable("code") String code);
+    @Operation(summary = "Returns daily weather forecast information for a specific location code", description = "Clients use this API to get forecast about weather in the upcoming days, for the given location", tags = {"Daily Forecast"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful retrieval operation. A JSON object representing daily forecast data available for the given location code", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2002.class))),
+
+                           @ApiResponse(responseCode = "404", description = "No managed location found for the given location code")})
+    @RequestMapping(value = "/v1/daily/{code}", produces = {"application/json"}, method = RequestMethod.GET)
+    ResponseEntity<InlineResponse2002> getDailyForecastByLocationCode(
+            @Parameter(in = ParameterIn.PATH, description = "code of the location", required = true, schema = @Schema()) @PathVariable("code") String code);
 
 
-    @Operation(summary = "Returns full weather forecast information based on client's IP address", description = "Clients use this API to get information about weather of location based on client's IP address", tags={ "Full Weather Forecast" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "successful retrieval operation. A JSON object represents full weather forecast information", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2003.class))),
-        
-        @ApiResponse(responseCode = "400", description = "bad request. Could not determine client's IP address"),
-        
-        @ApiResponse(responseCode = "404", description = "No managed location found for the client's IP address") })
-    @RequestMapping(value = "/v1/full",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
+    @Operation(summary = "Returns full weather forecast information based on client's IP address", description = "Clients use this API to get information about weather of location based on client's IP address", tags = {"Full Weather Forecast"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful retrieval operation. A JSON object represents full weather forecast information", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2003.class))),
+
+                           @ApiResponse(responseCode = "400", description = "bad request. Could not determine client's IP address"),
+
+                           @ApiResponse(responseCode = "404", description = "No managed location found for the client's IP address")})
+    @RequestMapping(value = "/v1/full", produces = {"application/json"}, method = RequestMethod.GET)
     ResponseEntity<InlineResponse2003> getFullWeatherByIPAddress();
 
 
-    @Operation(summary = "Returns full weather forecast information for the location specified by the given code", description = "Clients use this API to get weather information including realtime, hourly and daily forecast", tags={ "Full Weather Forecast" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "successful retrieval operation. A JSON object represents full weather forecast information", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2003.class))),
-        
-        @ApiResponse(responseCode = "404", description = "No managed location found for the given location code") })
-    @RequestMapping(value = "/v1/full/{code}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<InlineResponse2003> getFullWeatherByLocationCode(@Parameter(in = ParameterIn.PATH, description = "code of the location", required=true, schema=@Schema()) @PathVariable("code") String code);
+    @Operation(summary = "Returns full weather forecast information for the location specified by the given code", description = "Clients use this API to get weather information including realtime, hourly and daily forecast", tags = {"Full Weather Forecast"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful retrieval operation. A JSON object represents full weather forecast information", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2003.class))),
+
+                           @ApiResponse(responseCode = "404", description = "No managed location found for the given location code")})
+    @RequestMapping(value = "/v1/full/{code}", produces = {"application/json"}, method = RequestMethod.GET)
+    ResponseEntity<InlineResponse2003> getFullWeatherByLocationCode(
+            @Parameter(in = ParameterIn.PATH, description = "code of the location", required = true, schema = @Schema()) @PathVariable("code") String code);
 
 
-    @Operation(summary = "Returns details of a location", description = "Clients use this API to find an existing location in the database by a specific location_code", tags={ "Location" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Successful retrieval operation. Location found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = V1LocationsBody1.class))),
-        
-        @ApiResponse(responseCode = "404", description = "No location found with the given code.") })
-    @RequestMapping(value = "/v1/locations/{code}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<V1LocationsBody1> getLocation(@Parameter(in = ParameterIn.PATH, description = "code of the location", required=true, schema=@Schema()) @PathVariable("code") String code);
+    @Operation(summary = "Returns details of a location", description = "Clients use this API to find an existing location in the database by a specific location_code", tags = {"Location"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successful retrieval operation. Location found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = V1LocationsBody1.class))),
+
+                           @ApiResponse(responseCode = "404", description = "No location found with the given code.")})
+    @RequestMapping(value = "/v1/locations/{code}", produces = {"application/json"}, method = RequestMethod.GET)
+    ResponseEntity<V1LocationsBody1> getLocation(
+            @Parameter(in = ParameterIn.PATH, description = "code of the location", required = true, schema = @Schema()) @PathVariable("code") String code);
 
 
-    @Operation(summary = "Returns a list of managed locations - available for weather forecast", description = "Clients use this API to get a list of managed locations. Each location is uniquely identified by location code, for example 'LACA_US' represents Los Angeles city in California state, in the United States of America (US)", tags={ "Location" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "successful operation. There are managed locations available.", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Location.class)))),
-        
-        @ApiResponse(responseCode = "204", description = "No managed locations available") })
-    @RequestMapping(value = "/v1/locations",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
+    @Operation(summary = "Returns a list of managed locations - available for weather forecast", description = "Clients use this API to get a list of managed locations. Each location is uniquely identified by location code, for example 'LACA_US' represents Los Angeles city in California state, in the United States of America (US)", tags = {"Location"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful operation. There are managed locations available.", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Location.class)))),
+
+                           @ApiResponse(responseCode = "204", description = "No managed locations available")})
+    @RequestMapping(value = "/v1/locations", produces = {"application/json"}, method = RequestMethod.GET)
     ResponseEntity<List<Location>> getLocations();
 
 
-    @Operation(summary = "Returns the current weather information of the location based on client's IP address", description = "Clients use this API to get real time weather data of client's location (based on IP address)", tags={ "Realtime Weather" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "successful retrieval operation. Realtime data available for the client's location", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse200.class))),
-        
-        @ApiResponse(responseCode = "400", description = "bad request. Could not determine client's IP address"),
-        
-        @ApiResponse(responseCode = "404", description = "No managed location found for the client's IP address") })
-    @RequestMapping(value = "/v1/realtime",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
+    @Operation(summary = "Returns the current weather information of the location based on client's IP address", description = "Clients use this API to get real time weather data of client's location (based on IP address)", tags = {"Realtime Weather"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful retrieval operation. Realtime data available for the client's location", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse200.class))),
+
+                           @ApiResponse(responseCode = "400", description = "bad request. Could not determine client's IP address"),
+
+                           @ApiResponse(responseCode = "404", description = "No managed location found for the client's IP address")})
+    @RequestMapping(value = "/v1/realtime", produces = {"application/json"}, method = RequestMethod.GET)
     ResponseEntity<InlineResponse200> getRealtimeByIPAddress();
 
 
-    @Operation(summary = "Returns the current weather information of a specific location identified by the given code", description = "Clients use this API to get realtime weather data of a specific location by the given code", tags={ "Realtime Weather" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "successful retrieval operation. Realtime data available for the given location", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse200.class))),
-        
-        @ApiResponse(responseCode = "404", description = "No managed location found for the given code") })
-    @RequestMapping(value = "/v1/realtime/{code}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<InlineResponse200> getRealtimeByLocationCode(@Parameter(in = ParameterIn.PATH, description = "code of the location", required=true, schema=@Schema()) @PathVariable("code") String code);
+    @Operation(summary = "Returns the current weather information of a specific location identified by the given code", description = "Clients use this API to get realtime weather data of a specific location by the given code", tags = {"Realtime Weather"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful retrieval operation. Realtime data available for the given location", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse200.class))),
+
+                           @ApiResponse(responseCode = "404", description = "No managed location found for the given code")})
+    @RequestMapping(value = "/v1/realtime/{code}", produces = {"application/json"}, method = RequestMethod.GET)
+    ResponseEntity<InlineResponse200> getRealtimeByLocationCode(
+            @Parameter(in = ParameterIn.PATH, description = "code of the location", required = true, schema = @Schema()) @PathVariable("code") String code);
 
 
-    @Operation(summary = "Returns daily weather forecast information for the location based on client's IP address", description = "Clients use this API to get forecast about weather in the upcoming days, for the given location code", tags={ "Daily Forecast" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "successful retrieval operation. A JSON object representing daily forecast data available for the client's location", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2002.class))),
-        
-        @ApiResponse(responseCode = "400", description = "bad request. Could not determine client's IP address"),
-        
-        @ApiResponse(responseCode = "404", description = "No managed location found for the client's IP address") })
-    @RequestMapping(value = "/v1/daily",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
+    @Operation(summary = "Returns daily weather forecast information for the location based on client's IP address", description = "Clients use this API to get forecast about weather in the upcoming days, for the given location code", tags = {"Daily Forecast"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful retrieval operation. A JSON object representing daily forecast data available for the client's location", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2002.class))),
+
+                           @ApiResponse(responseCode = "400", description = "bad request. Could not determine client's IP address"),
+
+                           @ApiResponse(responseCode = "404", description = "No managed location found for the client's IP address")})
+    @RequestMapping(value = "/v1/daily", produces = {"application/json"}, method = RequestMethod.GET)
     ResponseEntity<InlineResponse2002> listDailyForecastByIPAddress();
 
 
-    @Operation(summary = "Returns weather forecast for upcoming hours in the current day, based on client's IP address", description = "Clients use this API to get weather forecast for upcoming hours in the current day. Location is determined automatically based on client's IP address.", tags={ "Hourly Forecast" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "successful retrieval operation. A JSON object representing hourly forecast information available for the client's location", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2001.class))),
-        
-        @ApiResponse(responseCode = "400", description = "bad request. Could not determine client's IP address"),
-        
-        @ApiResponse(responseCode = "404", description = "No managed location found for the client's IP address") })
-    @RequestMapping(value = "/v1/hourly",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
+    @Operation(summary = "Returns weather forecast for upcoming hours in the current day, based on client's IP address", description = "Clients use this API to get weather forecast for upcoming hours in the current day. Location is determined automatically based on client's IP address.", tags = {"Hourly Forecast"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful retrieval operation. A JSON object representing hourly forecast information available for the client's location", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2001.class))),
+
+                           @ApiResponse(responseCode = "400", description = "bad request. Could not determine client's IP address"),
+
+                           @ApiResponse(responseCode = "404", description = "No managed location found for the client's IP address")})
+    @RequestMapping(value = "/v1/hourly", produces = {"application/json"}, method = RequestMethod.GET)
     ResponseEntity<InlineResponse2001> listHourlyForecastByIPAddress();
 
 
-    @Operation(summary = "Returns hourly weather forecast information based on location code", description = "Clients use this API to get weather forecast for upcomping hours in the current day, for the given location code", tags={ "Hourly Forecast" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "successful retrieval operation. A JSON object representing hourly forecast data available for the given location code", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2001.class))),
-        
-        @ApiResponse(responseCode = "404", description = "No managed location found for the given location code") })
-    @RequestMapping(value = "/v1/hourly/{code}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<InlineResponse2001> listHourlyForecastByLocationCode(@Parameter(in = ParameterIn.PATH, description = "code of the location", required=true, schema=@Schema()) @PathVariable("code") String code);
+    @Operation(summary = "Returns hourly weather forecast information based on location code", description = "Clients use this API to get weather forecast for upcomping hours in the current day, for the given location code", tags = {"Hourly Forecast"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful retrieval operation. A JSON object representing hourly forecast data available for the given location code", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2001.class))),
+
+                           @ApiResponse(responseCode = "404", description = "No managed location found for the given location code")})
+    @RequestMapping(value = "/v1/hourly/{code}", produces = {"application/json"}, method = RequestMethod.GET)
+    ResponseEntity<InlineResponse2001> listHourlyForecastByLocationCode(
+            @Parameter(in = ParameterIn.PATH, description = "code of the location", required = true, schema = @Schema()) @PathVariable("code") String code);
 
 
-    @Operation(summary = "Update daily weather forecast information for a location specified by the given code", description = "Clients use this API to update data about weather forecast information in the upcoming days, based on given location code", tags={ "Daily Forecast" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "successful update operation. Daily weather forecast data updated successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2002.class))),
-        
-        @ApiResponse(responseCode = "404", description = "no managed location found for the given code") })
-    @RequestMapping(value = "/v1/daily/{code}",
-        produces = { "application/json" }, 
-        consumes = { "application/json" }, 
-        method = RequestMethod.PUT)
-    ResponseEntity<InlineResponse2002> updateDailyForecast(@Parameter(in = ParameterIn.PATH, description = "code of the location", required=true, schema=@Schema()) @PathVariable("code") String code, @Parameter(in = ParameterIn.DEFAULT, description = "a JSON object that represents the daily weather forecast data that needs to be updated", required=true, schema=@Schema()) @Valid @RequestBody DailyCodeBody body);
+    @Operation(summary = "Update daily weather forecast information for a location specified by the given code", description = "Clients use this API to update data about weather forecast information in the upcoming days, based on given location code", tags = {"Daily Forecast"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful update operation. Daily weather forecast data updated successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2002.class))),
+
+                           @ApiResponse(responseCode = "404", description = "no managed location found for the given code")})
+    @RequestMapping(value = "/v1/daily/{code}", produces = {"application/json"}, consumes = {"application/json"}, method = RequestMethod.PUT)
+    ResponseEntity<InlineResponse2002> updateDailyForecast(
+            @Parameter(in = ParameterIn.PATH, description = "code of the location", required = true, schema = @Schema()) @PathVariable("code") String code,
+            @Parameter(in = ParameterIn.DEFAULT, description = "a JSON object that represents the daily weather forecast data that needs to be updated", required = true, schema = @Schema()) @Valid @RequestBody DailyCodeBody body);
 
 
-    @Operation(summary = "Updates full weather forecast information of the location specified by the given code", description = "Clients use this API to update realtime, hourly and daily forecast of a location at once", tags={ "Full Weather Forecast" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "successful update operation. Full weather forecast data updated successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2003.class))),
-        
-        @ApiResponse(responseCode = "404", description = "no managed location found for the given code") })
-    @RequestMapping(value = "/v1/full/{code}",
-        produces = { "application/json" }, 
-        consumes = { "application/json" }, 
-        method = RequestMethod.PUT)
-    ResponseEntity<InlineResponse2003> updateFullWeather(@Parameter(in = ParameterIn.PATH, description = "code of the location", required=true, schema=@Schema()) @PathVariable("code") String code, @Parameter(in = ParameterIn.DEFAULT, description = "a JSON object that represents the full weather forecast information that needs to be updated", required=true, schema=@Schema()) @Valid @RequestBody FullCodeBody body);
+    @Operation(summary = "Updates full weather forecast information of the location specified by the given code", description = "Clients use this API to update realtime, hourly and daily forecast of a location at once", tags = {"Full Weather Forecast"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful update operation. Full weather forecast data updated successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2003.class))),
+
+                           @ApiResponse(responseCode = "404", description = "no managed location found for the given code")})
+    @RequestMapping(value = "/v1/full/{code}", produces = {"application/json"}, consumes = {"application/json"}, method = RequestMethod.PUT)
+    ResponseEntity<InlineResponse2003> updateFullWeather(
+            @Parameter(in = ParameterIn.PATH, description = "code of the location", required = true, schema = @Schema()) @PathVariable("code") String code,
+            @Parameter(in = ParameterIn.DEFAULT, description = "a JSON object that represents the full weather forecast information that needs to be updated", required = true, schema = @Schema()) @Valid @RequestBody FullCodeBody body);
 
 
-    @Operation(summary = "Updates hourly weather forecast information for a specific location", description = "Clients use this API to update weather forecast for upcoming hours in the current day, for the given location code", tags={ "Hourly Forecast" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "successful update operation. Hourly weather forecast data updated successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2001.class))),
-        
-        @ApiResponse(responseCode = "404", description = "no managed location found for the given code") })
-    @RequestMapping(value = "/v1/hourly/{code}",
-        produces = { "application/json" }, 
-        consumes = { "application/json" }, 
-        method = RequestMethod.PUT)
-    ResponseEntity<InlineResponse2001> updateHourlyForecast(@Parameter(in = ParameterIn.PATH, description = "code of the location", required=true, schema=@Schema()) @PathVariable("code") String code, @Parameter(in = ParameterIn.DEFAULT, description = "a JSON object that represents the hourly weather forecast data that needs to be updated", required=true, schema=@Schema()) @Valid @RequestBody HourlyCodeBody body);
+    @Operation(summary = "Updates hourly weather forecast information for a specific location", description = "Clients use this API to update weather forecast for upcoming hours in the current day, for the given location code", tags = {"Hourly Forecast"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful update operation. Hourly weather forecast data updated successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2001.class))),
+
+                           @ApiResponse(responseCode = "404", description = "no managed location found for the given code")})
+    @RequestMapping(value = "/v1/hourly/{code}", produces = {"application/json"}, consumes = {"application/json"}, method = RequestMethod.PUT)
+    ResponseEntity<InlineResponse2001> updateHourlyForecast(
+            @Parameter(in = ParameterIn.PATH, description = "code of the location", required = true, schema = @Schema()) @PathVariable("code") String code,
+            @Parameter(in = ParameterIn.DEFAULT, description = "a JSON object that represents the hourly weather forecast data that needs to be updated", required = true, schema = @Schema()) @Valid @RequestBody HourlyCodeBody body);
 
 
-    @Operation(summary = "Updates an existing location", description = "Clients use this API to modify information of a specific location. Note that location code cannot be changed.", tags={ "Location" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Successful update operation. Location updated. Returns details of the recently updated location", content = @Content(mediaType = "application/json", schema = @Schema(implementation = V1LocationsBody.class))),
-        
-        @ApiResponse(responseCode = "400", description = "Failed update operation. Request body rejected due to some fields have invalid values"),
-        
-        @ApiResponse(responseCode = "404", description = "No location found with the given location_code.") })
-    @RequestMapping(value = "/v1/locations",
-        produces = { "application/json" }, 
-        consumes = { "application/json" }, 
-        method = RequestMethod.PUT)
-    ResponseEntity<V1LocationsBody> updateLocation(@Parameter(in = ParameterIn.DEFAULT, description = "a JSON object that represents the location information that needs to be updated", required=true, schema=@Schema()) @Valid @RequestBody V1LocationsBody body);
+    @Operation(summary = "Updates an existing location", description = "Clients use this API to modify information of a specific location. Note that location code cannot be changed.", tags = {"Location"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successful update operation. Location updated. Returns details of the recently updated location", content = @Content(mediaType = "application/json", schema = @Schema(implementation = V1LocationsBody.class))),
+
+                           @ApiResponse(responseCode = "400", description = "Failed update operation. Request body rejected due to some fields have invalid values"),
+
+                           @ApiResponse(responseCode = "404", description = "No location found with the given location_code.")})
+    @RequestMapping(value = "/v1/locations", produces = {"application/json"}, consumes = {"application/json"}, method = RequestMethod.PUT)
+    ResponseEntity<V1LocationsBody> updateLocation(
+            @Parameter(in = ParameterIn.DEFAULT, description = "a JSON object that represents the location information that needs to be updated", required = true, schema = @Schema()) @Valid @RequestBody V1LocationsBody body);
 
 
-    @Operation(summary = "Updates realtime weather data based on location code", description = "Clients use this API to update current weather information for a specific location", tags={ "Realtime Weather" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "successful update operation. Realtime weather data updated successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RealtimeCodeBody.class))),
-        
-        @ApiResponse(responseCode = "404", description = "no managed location found for the given code") })
-    @RequestMapping(value = "/v1/realtime/{code}",
-        produces = { "application/json" }, 
-        consumes = { "application/json" }, 
-        method = RequestMethod.PUT)
-    ResponseEntity<RealtimeCodeBody> updateRealtimeWeather(@Parameter(in = ParameterIn.PATH, description = "code of the location", required=true, schema=@Schema()) @PathVariable("code") String code, @Parameter(in = ParameterIn.DEFAULT, description = "a JSON object that represents the realtime weather data that needs to be updated", required=true, schema=@Schema()) @Valid @RequestBody RealtimeCodeBody body);
+    @Operation(summary = "Updates realtime weather data based on location code", description = "Clients use this API to update current weather information for a specific location", tags = {"Realtime Weather"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful update operation. Realtime weather data updated successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RealtimeCodeBody.class))),
+
+                           @ApiResponse(responseCode = "404", description = "no managed location found for the given code")})
+    @RequestMapping(value = "/v1/realtime/{code}", produces = {"application/json"}, consumes = {"application/json"}, method = RequestMethod.PUT)
+    ResponseEntity<RealtimeCodeBody> updateRealtimeWeather(
+            @Parameter(in = ParameterIn.PATH, description = "code of the location", required = true, schema = @Schema()) @PathVariable("code") String code,
+            @Parameter(in = ParameterIn.DEFAULT, description = "a JSON object that represents the realtime weather data that needs to be updated", required = true, schema = @Schema()) @Valid @RequestBody RealtimeCodeBody body);
 
 }
 
