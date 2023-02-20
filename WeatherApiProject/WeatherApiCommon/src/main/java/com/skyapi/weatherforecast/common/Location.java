@@ -13,11 +13,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "locations")
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@ToString
+@AllArgsConstructor
 @Builder
 public class Location {
 
@@ -51,24 +49,4 @@ public class Location {
 
     @JsonIgnore
     private boolean trashed;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Location location = (Location) o;
-        return enabled == location.enabled && trashed == location.trashed && locationCode.equals(
-                location.locationCode) && cityName.equals(location.cityName) && regionName.equals(
-                location.regionName) && countryName.equals(location.countryName) && countryCode.equals(
-                location.countryCode);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(locationCode, cityName, regionName, countryName, countryCode, enabled, trashed);
-    }
 }
