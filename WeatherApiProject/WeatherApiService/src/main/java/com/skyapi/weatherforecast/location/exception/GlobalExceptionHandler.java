@@ -1,5 +1,6 @@
 package com.skyapi.weatherforecast.location.exception;
 
+import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -51,6 +52,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         LOGGER.error(ex.getLocalizedMessage(), ex);
 
         return new ResponseEntity<>(exceptionInResponse, HttpStatusCode.valueOf(404));
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    private ResponseEntity<ExceptionInResponse> handleConstraintViolationException(ConstraintViolationException ex) {
+
+        ExceptionInResponse exceptionInResponse = new ExceptionInResponse(LocalDateTime.now(),
+                                                                          HttpStatusCode.valueOf(400),
+                                                                          ex.getLocalizedMessage());
+
+        LOGGER.error(ex.getLocalizedMessage(), ex);
+
+        return new ResponseEntity<>(exceptionInResponse, HttpStatusCode.valueOf(400));
     }
 
     @ExceptionHandler(Exception.class)
