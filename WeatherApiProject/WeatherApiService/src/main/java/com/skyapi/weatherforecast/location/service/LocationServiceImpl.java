@@ -41,7 +41,7 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public Location getLocationByCode(String code) {
 
-        LOGGER.info("Inside get locations by location code");
+        LOGGER.info("Inside get locations by code");
 
         return this.locationRepository.findLocation(code);
     }
@@ -51,12 +51,12 @@ public class LocationServiceImpl implements LocationService {
 
         LOGGER.info("Inside update method");
 
-        Location locationInDB = this.locationRepository.findLocation(locationInRequest.getLocationCode());
+        Location locationInDB = this.locationRepository.findLocation(locationInRequest.getCode());
 
         if (locationInDB == null) {
 
             throw new LocationNotFoundException(
-                    "Location not found with given location_code: " + locationInRequest.getLocationCode());
+                    "Location not found with the given code: " + locationInRequest.getCode());
 
         }
 
@@ -80,7 +80,7 @@ public class LocationServiceImpl implements LocationService {
 
         if (locationInDB == null) {
 
-            throw new LocationNotFoundException("No location found with the given location_code: " + code);
+            throw new LocationNotFoundException("No location found with the given code: " + code);
         }
         this.locationRepository.trashByCode(code);
 

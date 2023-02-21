@@ -44,7 +44,7 @@ public class LocationServiceTest {
 
         Location savedLocation = this.locationService.addLocation(location);
 
-        assertEquals(location.getLocationCode(), savedLocation.getLocationCode());
+        assertEquals(location.getCode(), savedLocation.getCode());
 
         verify(locationRepository, times(1)).save(location);
 
@@ -71,7 +71,7 @@ public class LocationServiceTest {
 
         Location getLocationByCode = this.locationService.getLocationByCode("NYC_USA");
 
-        assertThat("NYC_USA").isEqualTo(getLocationByCode.getLocationCode());
+        assertThat("NYC_USA").isEqualTo(getLocationByCode.getCode());
 
         verify(locationRepository, times(1)).findLocation("NYC_USA");
     }
@@ -83,12 +83,12 @@ public class LocationServiceTest {
 
         Mockito.when(this.locationRepository.save(mockLocation())).thenReturn(mockLocation());
 
-        mockLocation().setLocationCode("ABC");
+        mockLocation().setCode("ABC");
         mockLocation().setCountryName("INDIA");
 
         Location updatedLocation = this.locationService.update(mockLocation());
 
-        assertThat(updatedLocation.getLocationCode()).isEqualTo(mockLocation().getLocationCode());
+        assertThat(updatedLocation.getCode()).isEqualTo(mockLocation().getCode());
 
         verify(locationRepository, times(1)).findLocation("NYC_USA");
         verify(locationRepository, times(1)).save(mockLocation());
@@ -104,25 +104,24 @@ public class LocationServiceTest {
     @Test
     public void testDeleteLocation() {
 
-        Mockito.when(this.locationRepository.findLocation(mockLocation().getLocationCode())).thenReturn(mockLocation());
+        Mockito.when(this.locationRepository.findLocation(mockLocation().getCode())).thenReturn(mockLocation());
 
-        doNothing().when(this.locationRepository).trashByCode(mockLocation().getLocationCode());
+        doNothing().when(this.locationRepository).trashByCode(mockLocation().getCode());
 
-        this.locationService.delete(mockLocation().getLocationCode());
+        this.locationService.delete(mockLocation().getCode());
     }
 
     @Test
     public void testDeleteLocation_throwsException() {
 
-        assertThrows(LocationNotFoundException.class,
-                     () -> this.locationService.delete(mockLocation().getLocationCode()));
+        assertThrows(LocationNotFoundException.class, () -> this.locationService.delete(mockLocation().getCode()));
 
     }
 
     private Location mockLocation() {
 
         Location location = Location.builder()
-                                    .locationCode("NYC_USA")
+                                    .code("NYC_USA")
                                     .cityName("New York City")
                                     .regionName("New York")
                                     .countryCode("US")
@@ -135,7 +134,7 @@ public class LocationServiceTest {
     private List<Location> mockListOfLocations() {
 
         Location location1 = Location.builder()
-                                     .locationCode("NYC_USA")
+                                     .code("NYC_USA")
                                      .cityName("New York City")
                                      .regionName("New York")
                                      .countryCode("US")
@@ -144,7 +143,7 @@ public class LocationServiceTest {
                                      .build();
 
         Location location2 = Location.builder()
-                                     .locationCode("LACA_USA")
+                                     .code("LACA_USA")
                                      .cityName("Los Angeles")
                                      .regionName("California")
                                      .countryCode("US")

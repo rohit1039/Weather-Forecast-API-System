@@ -40,7 +40,7 @@ public class V1ApiController implements V1Api {
         if (accept != null && accept.contains("application/json")) {
             try {
                 return new ResponseEntity<V1LocationsBody1>(objectMapper.readValue(
-                        "{\n  \"country_code\" : \"US\",\n  \"city_name\" : \"Los Angeles\",\n  \"location_code\" : \"LACA_US\",\n  \"country_name\" : \"United States of America\",\n  \"region_name\" : \"California\",\n  \"enabled\" : true\n}",
+                        "{\n  \"country_code\" : \"US\",\n  \"city_name\" : \"Los Angeles\",\n  \"code\" : \"LACA_US\",\n  \"country_name\" : \"United States of America\",\n  \"region_name\" : \"California\",\n  \"enabled\" : true\n}",
                         V1LocationsBody1.class), HttpStatus.NOT_IMPLEMENTED);
             }
             catch (IOException e) {
@@ -134,7 +134,7 @@ public class V1ApiController implements V1Api {
         if (accept != null && accept.contains("application/json")) {
             try {
                 return new ResponseEntity<List<Location>>(objectMapper.readValue(
-                        "[ {\n  \"country_code\" : \"US\",\n  \"city_name\" : \"Los Angeles\",\n  \"location_code\" : \"LACA_US\",\n  \"country_name\" : \"United States of America\",\n  \"region_name\" : \"California\",\n  \"enabled\" : true\n}, {\n  \"country_code\" : \"US\",\n  \"city_name\" : \"Los Angeles\",\n  \"location_code\" : \"LACA_US\",\n  \"country_name\" : \"United States of America\",\n  \"region_name\" : \"California\",\n  \"enabled\" : true\n} ]",
+                        "[ {\n  \"country_code\" : \"US\",\n  \"city_name\" : \"Los Angeles\",\n  \"code\" : \"LACA_US\",\n  \"country_name\" : \"United States of America\",\n  \"region_name\" : \"California\",\n  \"enabled\" : true\n}, {\n  \"country_code\" : \"US\",\n  \"city_name\" : \"Los Angeles\",\n  \"code\" : \"LACA_US\",\n  \"country_name\" : \"United States of America\",\n  \"region_name\" : \"California\",\n  \"enabled\" : true\n} ]",
                         List.class), HttpStatus.NOT_IMPLEMENTED);
             }
             catch (IOException e) {
@@ -296,7 +296,7 @@ public class V1ApiController implements V1Api {
         if (accept != null && accept.contains("application/json")) {
             try {
                 return new ResponseEntity<V1LocationsBody>(objectMapper.readValue(
-                        "{\n  \"country_code\" : \"US\",\n  \"city_name\" : \"Los Angeles\",\n  \"location_code\" : \"LACA_US\",\n  \"country_name\" : \"United States of America\",\n  \"region_name\" : \"California\",\n  \"enabled\" : true\n}",
+                        "{\n  \"country_code\" : \"US\",\n  \"city_name\" : \"Los Angeles\",\n  \"code\" : \"LACA_US\",\n  \"country_name\" : \"United States of America\",\n  \"region_name\" : \"California\",\n  \"enabled\" : true\n}",
                         V1LocationsBody.class), HttpStatus.NOT_IMPLEMENTED);
             }
             catch (IOException e) {

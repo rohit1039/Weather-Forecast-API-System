@@ -14,8 +14,8 @@ import java.util.Objects;
 
 
 public class Location {
-    @JsonProperty("location_code")
-    private String locationCode = null;
+    @JsonProperty("code")
+    private String code = null;
 
     @JsonProperty("city_name")
     private String cityName = null;
@@ -32,8 +32,8 @@ public class Location {
     @JsonProperty("enabled")
     private Boolean enabled = null;
 
-    public Location locationCode(String locationCode) {
-        this.locationCode = locationCode;
+    public Location code(String code) {
+        this.code = code;
         return this;
     }
 
@@ -44,12 +44,12 @@ public class Location {
      **/
     @Schema(example = "LACA_US", description = "unique code of a location")
 
-    public String getLocationCode() {
-        return locationCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setLocationCode(String locationCode) {
-        this.locationCode = locationCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Location cityName(String cityName) {
@@ -162,8 +162,8 @@ public class Location {
             return false;
         }
         Location location = (Location) o;
-        return Objects.equals(this.locationCode, location.locationCode) && Objects.equals(this.cityName,
-                                                                                          location.cityName) && Objects.equals(
+        return Objects.equals(this.code, location.code) && Objects.equals(this.cityName,
+                                                                          location.cityName) && Objects.equals(
                 this.regionName, location.regionName) && Objects.equals(this.countryCode,
                                                                         location.countryCode) && Objects.equals(
                 this.countryName, location.countryName) && Objects.equals(this.enabled, location.enabled);
@@ -171,7 +171,7 @@ public class Location {
 
     @Override
     public int hashCode() {
-        return Objects.hash(locationCode, cityName, regionName, countryCode, countryName, enabled);
+        return Objects.hash(code, cityName, regionName, countryCode, countryName, enabled);
     }
 
     @Override
@@ -179,7 +179,7 @@ public class Location {
         StringBuilder sb = new StringBuilder();
         sb.append("class Location {\n");
 
-        sb.append("    locationCode: ").append(toIndentedString(locationCode)).append("\n");
+        sb.append("    code: ").append(toIndentedString(code)).append("\n");
         sb.append("    cityName: ").append(toIndentedString(cityName)).append("\n");
         sb.append("    regionName: ").append(toIndentedString(regionName)).append("\n");
         sb.append("    countryCode: ").append(toIndentedString(countryCode)).append("\n");

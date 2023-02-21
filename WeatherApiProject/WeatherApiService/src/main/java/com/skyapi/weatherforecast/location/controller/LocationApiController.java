@@ -7,11 +7,14 @@ import jakarta.validation.constraints.Size;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 @RestController
 @RequestMapping(value = "/v1/locations")
@@ -28,13 +31,19 @@ public class LocationApiController {
     }
 
     @PostMapping
-    public ResponseEntity<Location> addLocation(@Valid @RequestBody Location location) {
+    public ResponseEntity<?> addLocation(@Valid @RequestBody Location location) {
 
-        Location addedLocation = this.locationService.addLocation(location);
+        HttpStatusCode statusCode = checkForUniqueLocationCode(location).getStatusCode();
 
-        LOGGER.info("Location saved successfully!");
+        if (statusCode.is2xxSuccessful()) {
 
-        return new ResponseEntity<>(addedLocation, HttpStatus.CREATED);
+            Location addedLocation = this.locationService.addLocation(location);
+
+            LOGGER.info("Location saved successfully!");
+
+            return new ResponseEntity<>(addedLocation, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("Location already exists with location code: " + location.getCode(), statusCode);
     }
 
     @GetMapping
@@ -67,7 +76,7 @@ public class LocationApiController {
 
         Location updatedLocation = this.locationService.update(locationInRequest);
 
-        LOGGER.info("Location updated with: {}", updatedLocation.getLocationCode());
+        LOGGER.info("Location updated with: {}", updatedLocation.getCode());
 
         return new ResponseEntity<>(updatedLocation, HttpStatus.OK);
     }
@@ -80,4 +89,12 @@ public class LocationApiController {
         return ResponseEntity.noContent().build();
     }
 
+    private ResponseEntity<?> checkForUniqueLocationCode(Location addedLocation) {
+
+        if (!isNull(this.locationService.getLocationByCode(addedLocation.getCode()))) {
+
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

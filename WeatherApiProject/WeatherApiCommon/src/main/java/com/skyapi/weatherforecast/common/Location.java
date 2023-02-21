@@ -20,11 +20,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Location {
 
-    @Column(name = "location_code", length = 12, nullable = false, unique = true)
-    @JsonProperty(value = "location_code")
+    @Column(name = "code", length = 12, nullable = false, unique = true)
+    @JsonProperty(value = "code")
     @Id
-    @NotBlank(message = "locationCode is required")
-    private String locationCode;
+    @NotBlank(message = "Location code is required")
+    private String code;
 
     @Column(name = "city_name", length = 128, nullable = false)
     @JsonProperty(value = "city_name")

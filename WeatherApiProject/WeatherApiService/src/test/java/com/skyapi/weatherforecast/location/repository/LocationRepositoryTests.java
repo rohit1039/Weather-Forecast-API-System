@@ -25,7 +25,7 @@ public class LocationRepositoryTests {
 
         Location location = new Location();
 
-        location.setLocationCode("NYC_USA");
+        location.setCode("NYC_USA");
         location.setCityName("New York City");
         location.setRegionName("New York");
         location.setCountryCode("US");
@@ -35,14 +35,14 @@ public class LocationRepositoryTests {
         Location savedLocation = this.locationRepository.save(location);
 
         assertThat(savedLocation).isNotNull();
-        assertThat(savedLocation.getLocationCode()).isEqualTo(location.getLocationCode());
+        assertThat(savedLocation.getCode()).isEqualTo(location.getCode());
     }
 
     @Test
     public void testAddLocation_Failure() {
 
         Location location = Location.builder()
-                                    .locationCode("NYC_USA")
+                                    .code("NYC_USA")
                                     .cityName("New York City")
                                     .regionName("New York")
                                     .countryCode("US")
@@ -53,7 +53,7 @@ public class LocationRepositoryTests {
         Location savedLocation = this.locationRepository.save(location);
 
         assertThat(savedLocation).isNotNull();
-        assertThat(savedLocation.getLocationCode()).isEqualTo(location.getLocationCode());
+        assertThat(savedLocation.getCode()).isEqualTo(location.getCode());
     }
 
     @Test
@@ -84,7 +84,7 @@ public class LocationRepositoryTests {
         Location location = this.locationRepository.findLocation(code);
 
         assertThat(location).isNotNull();
-        assertThat(location.getLocationCode()).isEqualTo(code);
+        assertThat(location.getCode()).isEqualTo(code);
     }
 
     @Test

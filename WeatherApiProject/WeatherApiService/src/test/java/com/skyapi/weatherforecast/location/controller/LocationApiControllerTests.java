@@ -47,7 +47,7 @@ public class LocationApiControllerTests {
     public void testAddShouldReturn201Created() throws Exception {
 
         Location location = Location.builder()
-                                    .locationCode("NYC_USA")
+                                    .code("NYC_USA")
                                     .cityName("New York City")
                                     .regionName("New York")
                                     .countryCode("US")
@@ -61,7 +61,7 @@ public class LocationApiControllerTests {
 
         mockMvc.perform(post(END_POINT_PATH).contentType("application/json").content(bodyContent))
                .andExpect(status().isCreated())
-               .andExpect(jsonPath("$.location_code", is("NYC_USA")))
+               .andExpect(jsonPath("$.code", is("NYC_USA")))
                .andExpect(jsonPath("$.city_name", is("New York City")))
                .andDo(print());
     }
@@ -78,7 +78,7 @@ public class LocationApiControllerTests {
     public void testListShouldReturn200OK() throws Exception {
 
         Location location1 = Location.builder()
-                                     .locationCode("NYC_USA")
+                                     .code("NYC_USA")
                                      .cityName("New York City")
                                      .regionName("New York")
                                      .countryCode("US")
@@ -87,7 +87,7 @@ public class LocationApiControllerTests {
                                      .build();
 
         Location location2 = Location.builder()
-                                     .locationCode("LACA_USA")
+                                     .code("LACA_USA")
                                      .cityName("Los Angeles")
                                      .regionName("California")
                                      .countryCode("US")
@@ -100,9 +100,9 @@ public class LocationApiControllerTests {
         mockMvc.perform(get(END_POINT_PATH))
                .andExpect(status().isOk())
                .andExpect(content().contentType("application/json"))
-               .andExpect(jsonPath("$[0].location_code", is("NYC_USA")))
+               .andExpect(jsonPath("$[0].code", is("NYC_USA")))
                .andExpect(jsonPath("$[0].city_name", is("New York City")))
-               .andExpect(jsonPath("$[1].location_code", is("LACA_USA")))
+               .andExpect(jsonPath("$[1].code", is("LACA_USA")))
                .andExpect(jsonPath("$[1].city_name", is("Los Angeles")))
                .andDo(print());
     }
@@ -130,7 +130,7 @@ public class LocationApiControllerTests {
         String requestURI = END_POINT_PATH + "/" + code;
 
         Location location = Location.builder()
-                                    .locationCode("LACA_USA")
+                                    .code("LACA_USA")
                                     .cityName("Los Angeles")
                                     .regionName("California")
                                     .countryCode("US")
@@ -143,7 +143,7 @@ public class LocationApiControllerTests {
         mockMvc.perform(get(requestURI))
                .andExpect(status().isOk())
                .andExpect(content().contentType("application/json"))
-               .andExpect(jsonPath("$.location_code", is(code)))
+               .andExpect(jsonPath("$.code", is(code)))
                .andExpect(jsonPath("$.city_name", is("Los Angeles")))
                .andDo(print());
     }
@@ -152,7 +152,7 @@ public class LocationApiControllerTests {
     public void testUpdateShouldReturn404NotFound() throws Exception {
 
         Location location = Location.builder()
-                                    .locationCode("ABCDEF")
+                                    .code("ABCDEF")
                                     .cityName("Los Angeles")
                                     .regionName("California")
                                     .countryCode("US")
@@ -191,7 +191,7 @@ public class LocationApiControllerTests {
     public void testUpdateShouldReturn200OK() throws Exception {
 
         Location location = Location.builder()
-                                    .locationCode("NYC_USA")
+                                    .code("NYC_USA")
                                     .cityName("New York City")
                                     .regionName("New York")
                                     .countryCode("US")
@@ -205,7 +205,7 @@ public class LocationApiControllerTests {
 
         mockMvc.perform(put(END_POINT_PATH).contentType("application/json").content(bodyContent))
                .andExpect(status().isOk())
-               .andExpect(jsonPath("$.location_code", is("NYC_USA")))
+               .andExpect(jsonPath("$.code", is("NYC_USA")))
                .andExpect(jsonPath("$.city_name", is("New York City")))
                .andDo(print());
     }

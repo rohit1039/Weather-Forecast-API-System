@@ -71,7 +71,7 @@
                   "A list of locations": {
                     "value": [
                       {
-                        "location_code": "LACA_US",
+                        "code": "LACA_US",
                         "city_name": "Los Angeles",
                         "region_name": "California",
                         "country_code": "US",
@@ -79,7 +79,7 @@
                         "enabled": true
                       },
                       {
-                        "location_code": "DELHI_IN",
+                        "code": "DELHI_IN",
                         "city_name": "Delhi",
                         "region_name": "Delhi",
                         "country_code": "IN",
@@ -87,7 +87,7 @@
                         "enabled": false
                       },
                       {
-                        "location_code": "HANOI_VN",
+                        "code": "HANOI_VN",
                         "city_name": "Hanoi",
                         "region_name": "Hanoi",
                         "country_code": "VN",
@@ -120,7 +120,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "location_code": {
+                  "code": {
                     "type": "string",
                     "description": "unique code of a location",
                     "example": "LACA_US"
@@ -163,7 +163,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "location_code": {
+                    "code": {
                       "type": "string",
                       "description": "unique code of a location",
                       "example": "LACA_US"
@@ -218,7 +218,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "location_code": {
+                  "code": {
                     "type": "string",
                     "description": "unique code of a location",
                     "example": "LACA_US"
@@ -261,7 +261,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "location_code": {
+                    "code": {
                       "type": "string",
                       "description": "unique code of a location",
                       "example": "LACA_US"
@@ -300,7 +300,7 @@
             "description": "Failed update operation. Request body rejected due to some fields have invalid values"
           },
           "404": {
-            "description": "No location found with the given location_code."
+            "description": "No location found with the given code."
           }
         },
         "tags": [
@@ -309,7 +309,7 @@
       }
     },
     "/v1/locations/{code}": {
-      "summary": "Operations for managing a specific location identified by location location_code",
+      "summary": "Operations for managing a specific location identified by location code",
       "parameters": [
         {
           "name": "code",
@@ -324,7 +324,7 @@
       ],
       "get": {
         "summary": "Returns details of a location",
-        "description": "Clients use this API to find an existing location in the database by a specific location_code",
+        "description": "Clients use this API to find an existing location in the database by a specific code",
         "operationId": "getLocation",
         "responses": {
           "200": {
@@ -334,7 +334,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "location_code": {
+                    "code": {
                       "type": "string",
                       "description": "unique code of a location",
                       "example": "LACA_US"
@@ -1830,7 +1830,7 @@
       "Location": {
         "type": "object",
         "properties": {
-          "location_code": {
+          "code": {
             "type": "string",
             "description": "unique code of a location",
             "example": "LACA_US"
@@ -2137,7 +2137,7 @@
       }
     },
     "parameters": {
-      "locationCode": {
+      "code": {
         "name": "code",
         "in": "path",
         "schema": {
