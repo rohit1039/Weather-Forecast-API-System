@@ -2,7 +2,7 @@
 
 All URIs are relative to *http://localhost:8080*
 
-<hr />
+-----------------------------------------------------
 
 - Location API
 
