@@ -1,6 +1,7 @@
 package com.skyapi.weatherforecast.common;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 @Builder
 public class RealtimeWeather {
 
+    @Id
     private String location;
     private Integer temperature;
     private Integer humidity;
