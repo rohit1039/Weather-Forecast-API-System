@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.Collections;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -107,19 +105,14 @@ public class LocationApiControllerTests {
 
         String bodyContent = mapper.writeValueAsString(location);
 
-        MvcResult mvcResult = mockMvc.perform(post(END_POINT_PATH).contentType("application/json").content(bodyContent))
-                                     .andExpect(status().isBadRequest())
-                                     .andDo(print())
-                                     .andReturn();
-
-        String responseBody = mvcResult.getResponse().getContentAsString();
-
-        assertThat(responseBody).contains("Location code cannot be null");
-        assertThat(responseBody).contains("City name cannot be null");
-        assertThat(responseBody).contains("Region name must have 3-128 characters");
-        assertThat(responseBody).contains("Country name cannot be null");
-        assertThat(responseBody).contains("Country code cannot be null");
-
+        mockMvc.perform(post(END_POINT_PATH).contentType("application/json").content(bodyContent))
+               .andExpect(status().isBadRequest())
+               .andExpect(jsonPath("$.code", is("Location code cannot be null")))
+               .andExpect(jsonPath("$.cityName", is("City name cannot be null")))
+               .andExpect(jsonPath("$.regionName", is("Region name must have 3-128 characters")))
+               .andExpect(jsonPath("$.countryName", is("Country name cannot be null")))
+               .andExpect(jsonPath("$.countryCode", is("Country code cannot be null")))
+               .andDo(print());
 
     }
 
