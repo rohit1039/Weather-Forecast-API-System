@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 @Service
 @Transactional
 public class LocationServiceImpl implements LocationService {
@@ -53,20 +55,22 @@ public class LocationServiceImpl implements LocationService {
 
         Location locationInDB = this.locationRepository.findLocation(locationInRequest.getCode());
 
-        if (locationInDB == null) {
+        if (isNull(locationInDB)) {
 
             throw new LocationNotFoundException(
                     "Location not found with the given code: " + locationInRequest.getCode());
 
         }
 
-        locationInDB.setCityName(locationInRequest.getCityName());
-        locationInDB.setRegionName(locationInRequest.getRegionName());
-        locationInDB.setCountryName(locationInRequest.getCountryName());
-        locationInDB.setCountryCode(locationInRequest.getCountryCode());
-        locationInDB.setEnabled(locationInRequest.isEnabled());
+        Location locationToSave = locationInDB.toBuilder()
+                                              .cityName(locationInRequest.getCityName())
+                                              .regionName(locationInRequest.getRegionName())
+                                              .countryName(locationInRequest.getCountryName())
+                                              .countryCode(locationInRequest.getCountryCode())
+                                              .enabled(locationInRequest.isEnabled())
+                                              .build();
 
-        Location updatedLocation = this.locationRepository.save(locationInDB);
+        Location updatedLocation = this.locationRepository.save(locationToSave);
 
         return updatedLocation;
     }

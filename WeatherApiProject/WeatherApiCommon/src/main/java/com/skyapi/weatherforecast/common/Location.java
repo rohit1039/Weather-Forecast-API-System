@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.Length;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 public class Location {
 
     @Column(name = "code", length = 12, nullable = false, unique = true)

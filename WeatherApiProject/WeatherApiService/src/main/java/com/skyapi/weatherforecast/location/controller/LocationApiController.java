@@ -31,7 +31,7 @@ public class LocationApiController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addLocation(@Valid @RequestBody Location location) {
+    public ResponseEntity<?> addLocation(@RequestBody @Valid Location location) {
 
         HttpStatusCode statusCode = checkForUniqueLocationCode(location).getStatusCode();
 
@@ -59,11 +59,11 @@ public class LocationApiController {
     }
 
     @GetMapping("/{code}")
-    public ResponseEntity<Location> getLocationByCode(@PathVariable @Size(max = 12) String code) {
+    public ResponseEntity<Location> getLocationByCode(@PathVariable @Size(min = 3, max = 12) String code) {
 
         Location location = this.locationService.getLocationByCode(code);
 
-        if (location == null) {
+        if (isNull(location)) {
 
             return ResponseEntity.notFound().build();
         }
@@ -76,13 +76,13 @@ public class LocationApiController {
 
         Location updatedLocation = this.locationService.update(locationInRequest);
 
-        LOGGER.info("Location updated with: {}", updatedLocation.getCode());
+        LOGGER.info("Location updated with location code: {}", updatedLocation.getCode());
 
         return new ResponseEntity<>(updatedLocation, HttpStatus.OK);
     }
 
     @DeleteMapping("/{code}")
-    public ResponseEntity<?> deleteLocation(@PathVariable("code") @Size(max = 12) String code) {
+    public ResponseEntity<?> deleteLocation(@PathVariable("code") @Size(min = 3, max = 12) String code) {
 
         this.locationService.delete(code);
 
