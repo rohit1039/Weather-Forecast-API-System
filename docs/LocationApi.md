@@ -56,12 +56,6 @@ Returns information of all locations
 
 Returns a JSON document containing a list of Location objects
 
-### Parameters
-
- Name         | Type          | Description         | Notes 
---------------|---------------|---------------------|-------
- **Location** | **ArrayList** | fetch all locations |
-
 <a name="updateLocation"></a>
 
 ## **updateLocation**
