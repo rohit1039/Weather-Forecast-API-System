@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.Collections;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -30,18 +32,6 @@ public class LocationApiControllerTests {
     private ObjectMapper mapper;
     @MockBean
     private LocationService locationService;
-
-    @Test
-    public void testAddShouldReturn400BadRequest() throws Exception {
-
-        Location location = new Location();
-
-        String bodyContent = mapper.writeValueAsString(location);
-
-        mockMvc.perform(post(END_POINT_PATH).contentType("application/json").content(bodyContent))
-               .andExpect(status().isBadRequest())
-               .andDo(print());
-    }
 
     @Test
     public void testAddShouldReturn201Created() throws Exception {
@@ -64,6 +54,73 @@ public class LocationApiControllerTests {
                .andExpect(jsonPath("$.code", is("NYC_USA")))
                .andExpect(jsonPath("$.city_name", is("New York City")))
                .andDo(print());
+    }
+
+    @Test
+    public void testValidateRequestBodyLocationCodeNotNull() throws Exception {
+
+        Location location = Location.builder()
+                                    .cityName("New York City")
+                                    .regionName("New York")
+                                    .countryCode("US")
+                                    .countryName("United States of America")
+                                    .enabled(true)
+                                    .build();
+
+        Mockito.when(locationService.addLocation(location)).thenReturn(location);
+
+        String bodyContent = mapper.writeValueAsString(location);
+
+        mockMvc.perform(post(END_POINT_PATH).contentType("application/json").content(bodyContent))
+               .andExpect(status().isBadRequest())
+               .andExpect(jsonPath("$.code", is("Location code cannot be null")))
+               .andDo(print());
+    }
+
+    @Test
+    public void testValidateRequestBodyLocationCodeLength() throws Exception {
+
+        Location location = Location.builder()
+                                    .code("XY")
+                                    .cityName("New York City")
+                                    .regionName("New York")
+                                    .countryCode("US")
+                                    .countryName("United States of America")
+                                    .enabled(true)
+                                    .build();
+
+        Mockito.when(locationService.addLocation(location)).thenReturn(location);
+
+        String bodyContent = mapper.writeValueAsString(location);
+
+        mockMvc.perform(post(END_POINT_PATH).contentType("application/json").content(bodyContent))
+               .andExpect(status().isBadRequest())
+               .andExpect(jsonPath("$.code", is("Location code must have 3-12 characters")))
+               .andDo(print());
+    }
+
+    @Test
+    public void testAddShouldReturn400BadRequestAllFieldsInvalid() throws Exception {
+
+        Location location = new Location();
+        location.setRegionName("");
+
+        String bodyContent = mapper.writeValueAsString(location);
+
+        MvcResult mvcResult = mockMvc.perform(post(END_POINT_PATH).contentType("application/json").content(bodyContent))
+                                     .andExpect(status().isBadRequest())
+                                     .andDo(print())
+                                     .andReturn();
+
+        String responseBody = mvcResult.getResponse().getContentAsString();
+
+        assertThat(responseBody).contains("Location code cannot be null");
+        assertThat(responseBody).contains("City name cannot be null");
+        assertThat(responseBody).contains("Region name must have 3-128 characters");
+        assertThat(responseBody).contains("Country name cannot be null");
+        assertThat(responseBody).contains("Country code cannot be null");
+
+
     }
 
     @Test
