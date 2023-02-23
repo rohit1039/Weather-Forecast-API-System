@@ -22,7 +22,6 @@ public class LocationServiceImpl implements LocationService {
     @Autowired
     private LocationRepository locationRepository;
 
-
     public Location addLocation(Location location) {
 
         LOGGER.info("Inside addLocation method");
@@ -82,7 +81,7 @@ public class LocationServiceImpl implements LocationService {
 
         Location locationInDB = this.locationRepository.findLocation(code);
 
-        if (locationInDB == null) {
+        if (isNull(locationInDB)) {
 
             throw new LocationNotFoundException("No location found with the given code: " + code);
         }
