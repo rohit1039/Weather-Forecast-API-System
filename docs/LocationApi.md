@@ -54,7 +54,7 @@ Trash information of a location found by a given identifier
 
 Returns information of all locations
 
-Returns a JSON document containing a list of Location objects
+Returns a JSON document containing a list of location objects
 
 <a name="updateLocation"></a>
 
