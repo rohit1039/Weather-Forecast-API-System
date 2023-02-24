@@ -59,7 +59,6 @@ public class LocationServiceImpl implements LocationService {
 
             throw new LocationNotFoundException(
                     "Location not found with the given code: " + locationInRequest.getCode());
-
         }
 
         Location locationToSave = locationInDB.toBuilder()
