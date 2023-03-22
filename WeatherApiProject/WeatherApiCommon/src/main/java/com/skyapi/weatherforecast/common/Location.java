@@ -2,20 +2,17 @@ package com.skyapi.weatherforecast.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "locations")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
@@ -57,4 +54,68 @@ public class Location {
 
     @JsonIgnore
     private boolean trashed;
+
+    @OneToOne(mappedBy = "location", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private RealtimeWeather realtimeWeather;
+
+    public Location(String cityName, String regionName, String countryName, String countryCode) {
+        this.cityName = cityName;
+        this.regionName = regionName;
+        this.countryName = countryName;
+        this.countryCode = countryCode;
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" + "code='" + code + '\'' + ", cityName='" + cityName + '\'' + ", regionName='" + regionName + '\'' + ", countryName='" + countryName + '\'' + ", countryCode='" + countryCode + '\'' + ", enabled=" + enabled + ", trashed=" + trashed + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Location location = (Location) o;
+
+        if (enabled != location.enabled) {
+            return false;
+        }
+        if (trashed != location.trashed) {
+            return false;
+        }
+        if (!Objects.equals(code, location.code)) {
+            return false;
+        }
+        if (!Objects.equals(cityName, location.cityName)) {
+            return false;
+        }
+        if (!Objects.equals(regionName, location.regionName)) {
+            return false;
+        }
+        if (!Objects.equals(countryName, location.countryName)) {
+            return false;
+        }
+        if (!Objects.equals(countryCode, location.countryCode)) {
+            return false;
+        }
+        return Objects.equals(realtimeWeather, location.realtimeWeather);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = code != null ? code.hashCode() : 0;
+        result = 31 * result + (cityName != null ? cityName.hashCode() : 0);
+        result = 31 * result + (regionName != null ? regionName.hashCode() : 0);
+        result = 31 * result + (countryName != null ? countryName.hashCode() : 0);
+        result = 31 * result + (countryCode != null ? countryCode.hashCode() : 0);
+        result = 31 * result + (enabled ? 1 : 0);
+        result = 31 * result + (trashed ? 1 : 0);
+        result = 31 * result + (realtimeWeather != null ? realtimeWeather.hashCode() : 0);
+        return result;
+    }
 }
